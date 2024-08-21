@@ -1,0 +1,83 @@
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_ROOT_PASSWORD: administrator
+      MYSQL_DATABASE: HospitalManagementSystem
+      MYSQL_USER: ronin
+      MYSQL_PASSWORD: administrator123
+    ports:
+      - "9000:3306"
+  startupservice:
+    build: 
+      context: .
+      dockerfile: ./services/startupService/Dockerfile
+    depends_on:
+      - mysql
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: mysql+mysqlconnector://root:administrator@mysql/HospitalManagementSystem
+  apigateway:
+    build: 
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+  authenticationservice:
+    build: 
+      context: .
+      dockerfile: ./services/authenticationService/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: mysql+mysqlconnector://root:administrator@mysql/HospitalManagementSystem
+  patientmanagement:
+    build: 
+      context: .
+      dockerfile: ./services/patientManagementService/Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      DATABASE_URL: mysql+mysqlconnector://root:administrator@mysql/HospitalManagementSystem
+  employeemanagement:
+    build:
+      context: .
+      dockerfile: ./services/employeeManagementService/Dockerfile
+    ports:
+      - "5002:5002"
+    environment:
+      DATABASE_URL: mysql+mysqlconnector://root:administrator@mysql/HospitalManagementSystem
+  appointmentmanagement:
+    build: 
+      context: .
+      dockerfile: ./services/appointmentManagementService/Dockerfile
+    ports:
+      - "5003:5003"
+    environment:
+      DATABASE_URL: mysql+mysqlconnector://root:administrator@mysql/HospitalManagementSystem
+  inventorymanagement:
+    build:
+      context: .
+      dockerfile: ./services/inventoryManagementService/Dockerfile
+    ports:
+      - "5007:5007"
+    environment:
+      DATABASE_URL: mysql+mysqlconnector://root:administrator@mysql/HospitalManagementSystem
+  medicalrecordmanagement:
+    build:
+      context: .
+      dockerfile: ./services/medicalrecordManagementService/Dockerfile
+    ports:
+      - "5008:5008"
+    environment:
+      DATABASE_URL: mysql+mysqlconnector://root:administrator@mysql/HospitalManagementSystem
+  reportmanagement:
+    build:
+      context: .
+      dockerfile: ./services/reportManagementService/Dockerfile
+    ports:
+      - "5009:5009"
+    environment:
+      DATABASE_URL: mysql+mysqlconnector://root:administrator@mysql/HospitalManagementSystem
