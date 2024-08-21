@@ -55,7 +55,7 @@ def get_all_reports_of_patient(db: Session, patient :  int):
 
 def create_new_medical_report(db: Session, new_medical_report :  MedicalReportBase):
     LabReports_New = LabReports(
-        chief_complaint = new_medical_report.chief_complaint,
+    chief_complaint = new_medical_report.chief_complaint,
     history_of_present_illness = new_medical_report.history_of_present_illness ,
     past_medical_history = new_medical_report.past_medical_history ,
     medication_history = new_medical_report.medication_history ,
@@ -147,3 +147,19 @@ def create_new_medical_report(db: Session, new_medical_report :  MedicalReportBa
     return {"msg":"Report Addition Successful"}
 
 
+
+def update_medical_report(db: Session, report_id: int,udpated_medical_report :  MedicalReportBase):
+    medical_report = db.query(LabReports).filter(LabReports.id == report_id).first()
+   
+    medical_report.chief_complaint = udpated_medical_report.first_name
+    medical_report.history_of_present_illness = udpated_medical_report.last_name
+    medical_report.past_medical_history = udpated_medical_report.date_of_birth
+    medical_report.medication_history = udpated_medical_report.email
+    medical_report.family_history = udpated_medical_report.phone
+    medical_report.social_history = udpated_medical_report.emergency_contact
+    medical_report.review_of_systems = udpated_medical_report.height
+    medical_report.physical_exam_findings = udpated_medical_report.gender
+
+    db.commit()
+    db.refresh(medical_report)
+    return medical_report
