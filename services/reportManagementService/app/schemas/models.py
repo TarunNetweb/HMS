@@ -29,8 +29,8 @@ class MedicalReportBase(BaseModel):
     mean_corpuscular_hemoglobin_concentration : Optional[float] = None
     platelet_count : Optional[float] = None 
     neutrophils : Optional[float] = None
-    lymphocytes : Optional[float] = None
     monocytes : Optional[float] = None
+    lymphocytes : Optional[float] = None
     eosinophils : Optional[float] = None
     basophils : Optional[float] = None
     glucose : Optional[float] = None
@@ -49,5 +49,5 @@ class MedicalReportBase(BaseModel):
     bad_cholesterol : Optional[float] = None
     triglycerides : Optional[float] = None
     prothrombin_time : Optional[float] = None
-    international_normalized_ratio : Optional[float] = None
     partial_thrombin_time: Optional[float] = None
+    international_normalized_ratio : Optional[float] = None
