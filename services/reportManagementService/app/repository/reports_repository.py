@@ -152,13 +152,13 @@ def update_medical_report(db: Session, report_id: int,udpated_medical_report :  
     medical_report = db.query(LabReports).filter(LabReports.id == report_id).first()
    
     medical_report.chief_complaint = udpated_medical_report.first_name
-    medical_report.history_of_present_illness = udpated_medical_report.last_name
-    medical_report.past_medical_history = udpated_medical_report.date_of_birth
+    medical_report.history_of_present_illness = udpated_medical_report.history_of_present_illness
+    medical_report.past_medical_history = udpated_medical_report.history_of_present_illness
     medical_report.medication_history = udpated_medical_report.email
     medical_report.family_history = udpated_medical_report.phone
     medical_report.social_history = udpated_medical_report.emergency_contact
     medical_report.review_of_systems = udpated_medical_report.height
-    medical_report.physical_exam_findings = udpated_medical_report.weight
+    medical_report.physical_exam_findings = udpated_medical_report.family_history
 
     db.commit()
     db.refresh(medical_report)
