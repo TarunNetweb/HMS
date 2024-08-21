@@ -86,3 +86,16 @@ async def makeNewStock(newMedicalReportBase:MedicalReportBase,Authorization: str
         return ReportRepo.create_new_medical_report(db=db, new_medical_report= newMedicalReportBase)
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="Something went wrong !!")
+
+
+@router.post("/create-update")
+async def makeNewStock(newMedicalReportBase:MedicalReportBase,Authorization: str = Header(None), db:Session = Depends(get_db)):
+    is_Authorized = Check_Authorization(Authorization=Authorization)
+    
+    if is_Authorized.status_code != 200:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorizaed access !")
+    
+    try:
+        return ReportRepo.create_new_medical_report(db=db, new_medical_report= newMedicalReportBase)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="Something went wrong !!")
